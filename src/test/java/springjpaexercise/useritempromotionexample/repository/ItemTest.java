@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import springjpaexercise.useritempromotionexample.entity.Item;
+import springjpaexercise.useritempromotionexample.entity.embeddable.StartEndDate;
 import springjpaexercise.useritempromotionexample.entity.enumtype.ItemType;
 
 import javax.persistence.EntityManager;
@@ -22,8 +23,8 @@ public class ItemTest {
     void createItem() {
         //given
         Item item1 = Item.builder().itemName("item1").itemPrice(1000).itemType(ItemType.GENERAL)
-                .itemDisplayStartDate(LocalDate.now())
-                .itemDisplayEndDate(LocalDate.now().plusMonths(1)).build();
+                .itemDisplayDate(new StartEndDate(LocalDate.now(), LocalDate.now().plusMonths(1)))
+                .build();
         //when
         Item save = itemRepository.save(item1);
         em.flush(); em.clear();
@@ -37,8 +38,8 @@ public class ItemTest {
     void deleteItem() {
         //given
         Item item1 = Item.builder().itemName("item1").itemPrice(1000).itemType(ItemType.GENERAL)
-                .itemDisplayStartDate(LocalDate.now())
-                .itemDisplayEndDate(LocalDate.now().plusMonths(1)).build();
+                .itemDisplayDate(new StartEndDate(LocalDate.now(), LocalDate.now().plusMonths(1)))
+                .build();
         Item save = itemRepository.save(item1);
         em.flush(); em.clear();
         //when

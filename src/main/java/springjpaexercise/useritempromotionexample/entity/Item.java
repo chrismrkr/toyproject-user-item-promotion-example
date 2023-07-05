@@ -3,6 +3,7 @@ package springjpaexercise.useritempromotionexample.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import springjpaexercise.useritempromotionexample.entity.embeddable.StartEndDate;
 import springjpaexercise.useritempromotionexample.entity.enumtype.ItemType;
 
 import javax.persistence.*;
@@ -19,15 +20,18 @@ public class Item {
     @Enumerated(value = EnumType.STRING)
     private ItemType itemType;
     private int itemPrice;
-    private LocalDate itemDisplayStartDate;
-    private LocalDate itemDisplayEndDate;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="startDate", column = @Column(name="item_display_start_date")),
+            @AttributeOverride(name="endDate", column = @Column(name="item_display_end_date"))
+    })
+    private StartEndDate itemDisplayDate;
 
     public static class Builder {
         private String itemName;
         private ItemType itemType;
         private int itemPrice;
-        private LocalDate itemDisplayStartDate;
-        private LocalDate itemDisplayEndDate;
+        private StartEndDate itemDisplayDate;
         public Builder itemName(String itemName) {
             this.itemName = itemName;
             return this;
@@ -40,14 +44,11 @@ public class Item {
             this.itemPrice = itemPrice;
             return this;
         }
-        public Builder itemDisplayStartDate(LocalDate itemDisplayStartDate) {
-            this.itemDisplayStartDate = itemDisplayStartDate;
+        public Builder itemDisplayDate(StartEndDate itemDisplayDate) {
+            this.itemDisplayDate = itemDisplayDate;
             return this;
         }
-        public Builder itemDisplayEndDate(LocalDate itemDisplayEndDate) {
-            this.itemDisplayEndDate = itemDisplayEndDate;
-            return this;
-        }
+
         public Item build() {
             return new Item(this);
         }
@@ -59,7 +60,6 @@ public class Item {
         this.itemName = builder.itemName;
         this.itemPrice = builder.itemPrice;
         this.itemType = builder.itemType;
-        this.itemDisplayStartDate = builder.itemDisplayStartDate;
-        this.itemDisplayEndDate = builder.itemDisplayEndDate;
+        this.itemDisplayDate = builder.itemDisplayDate;
     }
 }
