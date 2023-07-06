@@ -1,17 +1,20 @@
 package springjpaexercise.useritempromotionexample.entity;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import springjpaexercise.useritempromotionexample.entity.embeddable.DiscountPolicy;
 import springjpaexercise.useritempromotionexample.entity.embeddable.StartEndDate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@EqualsAndHashCode(of = {"id"})
 public class Promotion {
     @Id @Column(name = "promotion_id")
     @GeneratedValue
@@ -26,6 +29,9 @@ public class Promotion {
             @AttributeOverride(name="endDate", column = @Column(name="promotion_end_date"))
     })
     private StartEndDate promotionDate;
+
+    @OneToMany(mappedBy = "promotion", cascade = CascadeType.REMOVE)
+    private Set<PromotionItem> promotionItems = new HashSet<>();
 
     public static class Builder {
         private String promotionName;
