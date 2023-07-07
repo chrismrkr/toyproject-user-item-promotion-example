@@ -16,12 +16,15 @@ public class User {
     @Id @Column(name = "user_id")
     @GeneratedValue
     private Long id;
-
     private String username;
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
     @Enumerated(value = EnumType.STRING)
     private UserStat userStat;
+
+    public void updateUsername(String username) {
+        this.username = username;
+    }
 
     public static class Builder {
         private String username;
