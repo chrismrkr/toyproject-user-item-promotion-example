@@ -9,6 +9,7 @@ import springjpaexercise.useritempromotionexample.entity.enumtype.ItemType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,6 +35,21 @@ public class Item {
     @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE)
     private Set<PromotionItem> promotionItems = new HashSet<>();
 
+    public void updateItemName(String itemName) {
+        this.itemName = itemName;
+    }
+    public void updateItemType(String itemType) {
+        this.itemType = ItemType.valueOf(itemType);
+    }
+    public void updateItemPrice(int itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+    public void updateStartDate(String startDate, DateTimeFormatter dateTimeFormatter) {
+        this.itemDisplayDate.setStartDate(LocalDate.parse(startDate, dateTimeFormatter));
+    }
+    public void updateEndDate(String endDate, DateTimeFormatter dateTimeFormatter) {
+        this.itemDisplayDate.setStartDate(LocalDate.parse(endDate, dateTimeFormatter));
+    }
     public static class Builder {
         private String itemName;
         private ItemType itemType;
@@ -55,7 +71,6 @@ public class Item {
             this.itemDisplayDate = itemDisplayDate;
             return this;
         }
-
         public Item build() {
             return new Item(this);
         }

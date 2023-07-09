@@ -1,8 +1,6 @@
 package springjpaexercise.useritempromotionexample.entity.embeddable;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
@@ -11,6 +9,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode
 @AllArgsConstructor
+@Setter
+@Getter
 public class StartEndDate {
     private LocalDate startDate;
     private LocalDate endDate;

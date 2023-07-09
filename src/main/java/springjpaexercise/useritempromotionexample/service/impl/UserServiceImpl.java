@@ -20,33 +20,31 @@ public class UserServiceImpl implements UserService {
     public User save(UserDto userDto) {
         User newUser = User.builder().username(userDto.getUsername())
                 .userType(UserType.valueOf(userDto.getUserType().toUpperCase()))
-                .userStat(UserStat.valueOf(userDto.getUserStat().toUpperCase()))
+                .userStat(UserStat.ACCESSION)
                 .build();
         try {
             User save = userRepository.save(newUser);
             return save;
         } catch (Exception e) {
-            throw new IllegalStateException("USER SAVE FAIL");
+            throw new IllegalStateException("["+e.getMessage()+"]" + "USER SAVE FAIL : DB ERROR");
         }
     }
 
     @Override
     @Transactional
-    public User updateUsername(UserDto userDto, Long id) {
+    public User update(UserDto userDto, Long id) {
         User findUser = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("USER NOT EXIST"));
-        findUser.updateUsername(userDto.getUsername());
+                .orElseThrow(() -> new IllegalArgumentException("USER NOT EXIST"));
+        if(userDto.getUsername() != null) {
+            findUser.updateUsername(userDto.getUsername());
+        }
+        if(userDto.getUserType() != null) {
+            findUser.updateUserType(userDto.getUserType());
+        }
+        if(userDto.getUserStat() != null) {
+            findUser.updateUserStat(userDto.getUserStat());
+        }
         return findUser;
-    }
-
-    @Override
-    public User updateUserType(UserDto userDto, Long id) {
-        return null;
-    }
-
-    @Override
-    public User updateUserStat(UserDto userDto, Long id) {
-        return null;
     }
 
 }

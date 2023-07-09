@@ -25,6 +25,12 @@ public class User {
     public void updateUsername(String username) {
         this.username = username;
     }
+    public void updateUserStat(String userStat) {
+        this.userStat = UserStat.valueOf(userStat);
+    }
+    public void updateUserType(String userType) {
+        this.userType = UserType.valueOf(userType);
+    }
 
     public static class Builder {
         private String username;

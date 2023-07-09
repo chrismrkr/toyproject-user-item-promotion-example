@@ -18,13 +18,18 @@ public class UserController {
         ResponseDto responseDto = new ResponseDto();
         return responseDto;
     }
-    @PutMapping("/user")
-    public void updateUser(@RequestBody UserDto userDto) {
-
+    @PutMapping("/user/{id}")
+    public ResponseDto updateUser(@RequestBody UserDto userDto, @PathVariable(name = "id") Long id) {
+        User update = userService.update(userDto, id);
+        ResponseDto responseDto = new ResponseDto();
+        return responseDto;
     }
-    @DeleteMapping("/user")
-    public void deleteUser(@RequestBody UserDto userDto) {
-
+    @DeleteMapping("/user/{id}")
+    public ResponseDto withdrawUser(@PathVariable(name = "id") Long id) {
+        UserDto withdrawal = UserDto.builder().userStat("WITHDRAWAL").build();
+        User update = userService.update(withdrawal, id);
+        ResponseDto responseDto = new ResponseDto();
+        return  responseDto;
     }
 
 }
