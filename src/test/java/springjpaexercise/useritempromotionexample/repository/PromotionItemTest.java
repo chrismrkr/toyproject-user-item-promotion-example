@@ -18,6 +18,8 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @Transactional
 public class PromotionItemTest {
@@ -69,11 +71,11 @@ public class PromotionItemTest {
         // then
         List<Promotion> promotionList2 = promotionRepository.findAll();
         List<Item> itemList2 = itemRepository.findAll();
-        Assertions.assertEquals(3, promotionItemRepository.findAll().size());
-        Assertions.assertEquals(1, itemList2.get(0).getPromotionItems().size());
-        Assertions.assertEquals(2, itemList2.get(1).getPromotionItems().size());
-        Assertions.assertEquals(2, promotionList2.get(0).getPromotionItems().size());
-        Assertions.assertEquals(1, promotionList2.get(1).getPromotionItems().size());
+        assertEquals(3, promotionItemRepository.findAll().size());
+        assertEquals(1, itemList2.get(0).getPromotionItems().size());
+        assertEquals(2, itemList2.get(1).getPromotionItems().size());
+        assertEquals(2, promotionList2.get(0).getPromotionItems().size());
+        assertEquals(1, promotionList2.get(1).getPromotionItems().size());
     }
     @Test
     @DisplayName("상품 프로모션 조회")
@@ -93,7 +95,7 @@ public class PromotionItemTest {
                         .itemPK(itemList2.get(0).getId()).build()
         ).get();
         // then
-        Assertions.assertNotNull(promotionItem);
+        assertNotNull(promotionItem);
     }
     @Test
     @DisplayName("상품 프로모션 삭제")
@@ -111,7 +113,7 @@ public class PromotionItemTest {
                 .promotionPK(promotionList2.get(0).getId())
                 .itemPK(itemList2.get(0).getId()).build());
         // then
-        Assertions.assertEquals(0, promotionItemRepository.findAll().size());
+        assertEquals(0, promotionItemRepository.findAll().size());
     }
 
     @Test
@@ -131,7 +133,7 @@ public class PromotionItemTest {
         Item deleteItem = itemRepository.findAll().get(1);
         itemRepository.delete(deleteItem);
         // then
-        Assertions.assertEquals(1, promotionItemRepository.findAll().size());
+        assertEquals(1, promotionItemRepository.findAll().size());
     }
     @Test
     @DisplayName("프로모션 삭제 --|cascade|--> 연관 프로모션 삭제")
@@ -150,6 +152,25 @@ public class PromotionItemTest {
         Promotion deletePromotion = promotionRepository.findAll().get(0);
         promotionRepository.delete(deletePromotion);
         // then
-        Assertions.assertEquals(1, promotionItemRepository.findAll().size());
+        assertEquals(1, promotionItemRepository.findAll().size());
     }
+    @Test
+    @DisplayName("프로모션 상품 조회 : itemId를 조건으로 조회")
+    void selectPromotionItemByItemId() {
+        // given
+        List<Promotion> promotionList = promotionRepository.findAll();
+        List<Item> itemList = itemRepository.findAll();
+        PromotionItem promotionItem1 = new PromotionItem(promotionList.get(0), itemList.get(0));
+        PromotionItem promotionItem2 = new PromotionItem(promotionList.get(0), itemList.get(1));
+        PromotionItem promotionItem3 = new PromotionItem(promotionList.get(1), itemList.get(1));
+        promotionItemRepository.save(promotionItem1);
+        promotionItemRepository.save(promotionItem2);
+        promotionItemRepository.save(promotionItem3);
+        em.flush(); em.clear();
+        // when
+        List<PromotionItem> byItemId = promotionItemRepository.findByItemId(itemList.get(1).getId());
+        // then
+        assertEquals(2, byItemId.size());
+    }
+
 }

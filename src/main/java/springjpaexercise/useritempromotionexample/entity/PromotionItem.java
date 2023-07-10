@@ -9,6 +9,7 @@ import java.io.Serializable;
 @IdClass(PromotionItem.JoinTableId.class)
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class PromotionItem {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
