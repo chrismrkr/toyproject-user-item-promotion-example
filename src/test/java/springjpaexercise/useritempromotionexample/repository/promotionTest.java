@@ -49,8 +49,8 @@ public class promotionTest {
         assertEquals(promotion2.getId(), find2.getId());
         assertEquals(promotion2.getDiscountPolicy().getType(),
                 find2.getDiscountPolicy().getType());
-        assertEquals(promotion2.getDiscountPolicy().getDiscountAmount(),
-                find2.getDiscountPolicy().getDiscountAmount());
+        assertEquals(promotion2.getDiscountPolicy().getDiscountRate(),
+                find2.getDiscountPolicy().getDiscountRate());
     }
 
     @Test
