@@ -76,8 +76,7 @@ public class ItemServiceImpl implements ItemService {
             return itemRepository.findByDateBetweenStartEndDate(LocalDate.now());
         } else {
             return itemRepository.findByItemTypeAndByDateBetweenStartEndDate(
-                    ItemType.GENERAL, LocalDate.now()
-                    );g
+                    ItemType.GENERAL, LocalDate.now());
         }
     }
 
