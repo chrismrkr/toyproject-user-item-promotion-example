@@ -14,6 +14,8 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @Transactional
 public class promotionTest {
@@ -28,12 +30,27 @@ public class promotionTest {
                 .promotionDate(new StartEndDate(LocalDate.now(), LocalDate.now().plusMonths(1)))
                 .discountPolicy(DiscountPolicy.builder().discountAmount(1000).build())
                 .build();
+        Promotion promotion2 = Promotion.builder().promotionName("promotion2")
+                .promotionDate(new StartEndDate(LocalDate.now(), LocalDate.now().plusMonths(1)))
+                .discountPolicy(DiscountPolicy.builder().discountRate(0.1).build())
+                .build();
         // when
-        Promotion save = promotionRepository.save(promotion1);
+        Promotion save1 = promotionRepository.save(promotion1);
+        Promotion save2 = promotionRepository.save(promotion2);
         em.flush(); em.clear();
         // then
-        Promotion find = promotionRepository.findById(promotion1.getId()).get();
-        Assertions.assertEquals(promotion1.getId(), find.getId());
+        Promotion find1 = promotionRepository.findById(promotion1.getId()).get();
+        assertEquals(promotion1.getId(), find1.getId());
+        assertEquals(promotion1.getDiscountPolicy().getType(),
+                                    find1.getDiscountPolicy().getType());
+        assertEquals(promotion1.getDiscountPolicy().getDiscountAmount(),
+                find1.getDiscountPolicy().getDiscountAmount());
+        Promotion find2 = promotionRepository.findById(promotion2.getId()).get();
+        assertEquals(promotion2.getId(), find2.getId());
+        assertEquals(promotion2.getDiscountPolicy().getType(),
+                find2.getDiscountPolicy().getType());
+        assertEquals(promotion2.getDiscountPolicy().getDiscountAmount(),
+                find2.getDiscountPolicy().getDiscountAmount());
     }
 
     @Test
@@ -50,6 +67,6 @@ public class promotionTest {
         Optional<Promotion> find = promotionRepository.findById(promotion1.getId());
         promotionRepository.delete(find.get());
         // then
-        Assertions.assertEquals(0, promotionRepository.findAll().size());
+        assertEquals(0, promotionRepository.findAll().size());
     }
 }

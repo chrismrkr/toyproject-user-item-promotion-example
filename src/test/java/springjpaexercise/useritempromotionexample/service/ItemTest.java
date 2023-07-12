@@ -94,8 +94,10 @@ public class ItemTest {
                 .build();
         given(userRepository.findById(any()))
                 .willReturn(Optional.ofNullable(user));
+        itemService = new ItemServiceImpl(itemRepository, userRepository);
         // when-then
-        List<Item> itemList = itemService.findItemListByUserType(user.getId());
+        assertThrows(IllegalStateException.class,
+                () -> itemService.findItemListByUserType(user.getId()));
     }
 
 

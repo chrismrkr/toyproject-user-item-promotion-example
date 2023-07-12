@@ -54,7 +54,7 @@ public class PromotionItemTest {
     }
 
     @Test
-    @DisplayName("상품 프로모션 생성")
+    @DisplayName("PromotionItem 생성")
     void applyPromotionItem() {
         /* 상품0-프로모션0, 상품1-프로모션0,1 */
         // given
@@ -78,7 +78,7 @@ public class PromotionItemTest {
         assertEquals(1, promotionList2.get(1).getPromotionItems().size());
     }
     @Test
-    @DisplayName("상품 프로모션 조회")
+    @DisplayName("PromotionItem 조회")
     void showPromotionItem() {
         // given
         List<Promotion> promotionList = promotionRepository.findAll();
@@ -98,7 +98,7 @@ public class PromotionItemTest {
         assertNotNull(promotionItem);
     }
     @Test
-    @DisplayName("상품 프로모션 삭제")
+    @DisplayName("PromotionItem 삭제")
     void deletePromotionItem() {
         // given
         List<Promotion> promotionList = promotionRepository.findAll();
@@ -117,7 +117,7 @@ public class PromotionItemTest {
     }
 
     @Test
-    @DisplayName("상품 삭제 --|cascade|--> 연관 상품 프로모션 삭제")
+    @DisplayName("Item 삭제 --|cascade|--> 연관 PromotionItem 삭제")
     void itemDeleteCascade() {
         // given
         List<Promotion> promotionList = promotionRepository.findAll();
@@ -136,7 +136,7 @@ public class PromotionItemTest {
         assertEquals(1, promotionItemRepository.findAll().size());
     }
     @Test
-    @DisplayName("프로모션 삭제 --|cascade|--> 연관 프로모션 삭제")
+    @DisplayName("Promotiom 삭제 --|cascade|--> 연관 PromotionItem 삭제")
     void promotionDeleteCascade() {
         // given
         List<Promotion> promotionList = promotionRepository.findAll();
@@ -155,7 +155,7 @@ public class PromotionItemTest {
         assertEquals(1, promotionItemRepository.findAll().size());
     }
     @Test
-    @DisplayName("프로모션 상품 조회 : itemId를 조건으로 조회")
+    @DisplayName("PromotionItem 조회 : item과 연관된 PromotionItem 조회")
     void selectPromotionItemByItemId() {
         // given
         List<Promotion> promotionList = promotionRepository.findAll();
@@ -168,7 +168,7 @@ public class PromotionItemTest {
         promotionItemRepository.save(promotionItem3);
         em.flush(); em.clear();
         // when
-        List<PromotionItem> byItemId = promotionItemRepository.findByItemId(itemList.get(1).getId());
+        List<PromotionItem> byItemId = promotionItemRepository.findByItemId(itemList.get(1).getId(), LocalDate.now());
         // then
         assertEquals(2, byItemId.size());
     }
