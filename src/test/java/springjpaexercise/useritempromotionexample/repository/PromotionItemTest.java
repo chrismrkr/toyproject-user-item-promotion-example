@@ -48,8 +48,12 @@ public class PromotionItemTest {
         Promotion promotion2 = Promotion.builder().promotionName("promotion2").discountPolicy(DiscountPolicy.builder().discountAmount(1500).build())
                 .promotionDate(new StartEndDate(LocalDate.now(), LocalDate.now().plusMonths(1)))
                 .build();
+        Promotion promotion3 = Promotion.builder().promotionName("promotion2").discountPolicy(DiscountPolicy.builder().discountAmount(1500).build())
+                .promotionDate(new StartEndDate(LocalDate.now().minusMonths(2), LocalDate.now().minusMonths(1)))
+                .build();
         promotionRepository.save(promotion1);
         promotionRepository.save(promotion2);
+        promotionRepository.save(promotion3);
         em.flush(); em.clear();
     }
 
@@ -163,14 +167,15 @@ public class PromotionItemTest {
         PromotionItem promotionItem1 = new PromotionItem(promotionList.get(0), itemList.get(0));
         PromotionItem promotionItem2 = new PromotionItem(promotionList.get(0), itemList.get(1));
         PromotionItem promotionItem3 = new PromotionItem(promotionList.get(1), itemList.get(1));
+        PromotionItem promotionItem4 = new PromotionItem(promotionList.get(2), itemList.get(1));
         promotionItemRepository.save(promotionItem1);
         promotionItemRepository.save(promotionItem2);
         promotionItemRepository.save(promotionItem3);
+        promotionItemRepository.save(promotionItem4);
         em.flush(); em.clear();
         // when
         List<PromotionItem> byItemId = promotionItemRepository.findByItemId(itemList.get(1).getId(), LocalDate.now());
         // then
         assertEquals(2, byItemId.size());
     }
-
 }
