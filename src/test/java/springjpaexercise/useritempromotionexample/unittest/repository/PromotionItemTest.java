@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.repository;
+package springjpaexercise.useritempromotionexample.unittest.repository;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +13,9 @@ import springjpaexercise.useritempromotionexample.entity.PromotionItem;
 import springjpaexercise.useritempromotionexample.entity.embeddable.DiscountPolicy;
 import springjpaexercise.useritempromotionexample.entity.embeddable.StartEndDate;
 import springjpaexercise.useritempromotionexample.entity.enumtype.ItemType;
+import springjpaexercise.useritempromotionexample.repository.ItemRepository;
+import springjpaexercise.useritempromotionexample.repository.PromotionItemRepository;
+import springjpaexercise.useritempromotionexample.repository.PromotionRepository;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
@@ -24,9 +27,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 public class PromotionItemTest {
     @Autowired EntityManager em;
-    @Autowired PromotionRepository promotionRepository;
-    @Autowired ItemRepository itemRepository;
-    @Autowired PromotionItemRepository promotionItemRepository;
+    @Autowired
+    PromotionRepository promotionRepository;
+    @Autowired
+    ItemRepository itemRepository;
+    @Autowired
+    PromotionItemRepository promotionItemRepository;
 
     @BeforeEach
     void createItem() {

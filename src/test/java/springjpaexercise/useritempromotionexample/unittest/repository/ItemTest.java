@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.repository;
+package springjpaexercise.useritempromotionexample.unittest.repository;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import springjpaexercise.useritempromotionexample.entity.Item;
 import springjpaexercise.useritempromotionexample.entity.embeddable.StartEndDate;
 import springjpaexercise.useritempromotionexample.entity.enumtype.ItemType;
+import springjpaexercise.useritempromotionexample.repository.ItemRepository;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
@@ -20,7 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 public class ItemTest {
     @Autowired EntityManager em;
-    @Autowired ItemRepository itemRepository;
+    @Autowired
+    ItemRepository itemRepository;
     @Test
     @DisplayName("상품 생성 테스트")
     void createItem() {
@@ -153,7 +155,7 @@ public class ItemTest {
                 itemRepository.findById(save.getId()).get().getItemDisplayDate().getStartDate());
     }
     @Test
-    @DisplayName("상품 조회 테스트 : between startDate-updateDate ")
+    @DisplayName("상품 조회 테스트 : between startDate-updateDate")
     void selectItemBetweenStartDateAndEndDate() {
         //given
         Item item1 = Item.builder()

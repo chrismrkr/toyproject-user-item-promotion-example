@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.repository;
+package springjpaexercise.useritempromotionexample.unittest.repository;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import springjpaexercise.useritempromotionexample.entity.User;
 import springjpaexercise.useritempromotionexample.entity.enumtype.UserStat;
 import springjpaexercise.useritempromotionexample.entity.enumtype.UserType;
+import springjpaexercise.useritempromotionexample.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;

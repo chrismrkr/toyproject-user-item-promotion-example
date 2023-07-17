@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.service;
+package springjpaexercise.useritempromotionexample.unittest.service;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +21,7 @@ import springjpaexercise.useritempromotionexample.entity.enumtype.UserStat;
 import springjpaexercise.useritempromotionexample.entity.enumtype.UserType;
 import springjpaexercise.useritempromotionexample.repository.ItemRepository;
 import springjpaexercise.useritempromotionexample.repository.UserRepository;
+import springjpaexercise.useritempromotionexample.service.ItemService;
 import springjpaexercise.useritempromotionexample.service.impl.ItemServiceImpl;
 
 import javax.persistence.EntityManager;
@@ -42,7 +43,7 @@ public class ItemTest {
     ItemService itemService;
 
     @Test
-    @DisplayName("Item DisplayDate 조회 : userType이 Enterprise인 경우")
+    @DisplayName("Item 조회 : userType이 Enterprise인 경우")
     void findItemByDateAndTypeEnterprise(){
         // given
         User user = User.builder().username("user1")
@@ -64,7 +65,7 @@ public class ItemTest {
         }
     }
     @Test
-    @DisplayName("Item DisplayDate 조회 : userType이 GENERAL인 경우")
+    @DisplayName("Item 조회 : userType이 GENERAL인 경우")
     void findItemByDateAndTypeGeneral(){
         // given
         User user = User.builder().username("user1")
@@ -85,7 +86,7 @@ public class ItemTest {
         }
     }
     @Test
-    @DisplayName("Item DisplayDate 조회 실패 : userStat이 WITHDRAWAL인 경우")
+    @DisplayName("Item 조회 실패 : userStat이 WITHDRAWAL인 경우")
     void findItemByDateAndTypeFail(){
         // given
         User user = User.builder().username("user1")

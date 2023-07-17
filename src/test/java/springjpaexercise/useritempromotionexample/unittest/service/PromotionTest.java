@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.service;
+package springjpaexercise.useritempromotionexample.unittest.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import springjpaexercise.useritempromotionexample.repository.PromotionItemRepository;
+import springjpaexercise.useritempromotionexample.service.PromotionService;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
