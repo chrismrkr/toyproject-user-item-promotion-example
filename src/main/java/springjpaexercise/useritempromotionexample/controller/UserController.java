@@ -3,7 +3,6 @@ package springjpaexercise.useritempromotionexample.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springjpaexercise.useritempromotionexample.entity.User;
-import springjpaexercise.useritempromotionexample.entity.dto.ResponseDto;
 import springjpaexercise.useritempromotionexample.entity.dto.UserDto;
 import springjpaexercise.useritempromotionexample.service.UserService;
 
@@ -21,7 +20,7 @@ public class UserController {
         return responseDto;
     }
     @PutMapping("/user/{id}")
-    public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable(name = "id") Long id) {
+    public UserDto updateUser(@Valid @RequestBody UserDto userDto, @PathVariable(name = "id") Long id) {
         User updatedUser = userService.update(userDto, id);
         UserDto responseDto = createResponseUserDto(updatedUser);
         return responseDto;
