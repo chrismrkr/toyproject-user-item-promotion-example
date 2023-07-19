@@ -8,6 +8,7 @@ import springjpaexercise.useritempromotionexample.entity.enumtype.ItemType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -17,7 +18,7 @@ public class ItemDto {
     private String itemName;
     @NotBlank(message = "상품 종류를 지정해주세요")
     private String itemType;
-    @NotBlank(message = "상품 가격을 입력해주세요.")
+    @NotNull
     private Integer itemPrice;
     @NotBlank(message = "시작일을 설정해주세요.")
     private String startDate;
@@ -53,6 +54,9 @@ public class ItemDto {
         public Builder endDate(String endDate) {
             this.endDate = endDate;
             return this;
+        }
+        public ItemDto build() {
+            return new ItemDto(this);
         }
     }
     public static Builder builder() {

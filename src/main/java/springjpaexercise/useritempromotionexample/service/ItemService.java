@@ -9,4 +9,5 @@ public interface ItemService {
     Item create(ItemDto itemDto);
     Item update(ItemDto itemDto, Long id);
     List<Item> findItemListByUserType(Long userId);
+    void delete(Long id);
 }

@@ -3,6 +3,7 @@ package springjpaexercise.useritempromotionexample.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import springjpaexercise.useritempromotionexample.annotation.CheckDisplayDate;
 import springjpaexercise.useritempromotionexample.entity.Item;
 import springjpaexercise.useritempromotionexample.entity.User;
 import springjpaexercise.useritempromotionexample.entity.dto.ItemDto;
@@ -23,10 +24,10 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
-
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
     @Override
+    @CheckDisplayDate
     public Item create(ItemDto itemDto) {
         Item newItem = Item.builder().itemName(itemDto.getItemName())
                 .itemPrice(itemDto.getItemPrice())
@@ -44,6 +45,7 @@ public class ItemServiceImpl implements ItemService {
     }
     @Override
     @Transactional
+    @CheckDisplayDate
     public Item update(ItemDto itemDto, Long id) {
         Item findItem = itemRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ITEM NOT EXIST"));
@@ -64,13 +66,20 @@ public class ItemServiceImpl implements ItemService {
         }
         return findItem;
     }
+    @Override
+    @Transactional
+    public void delete(Long itemId) {
+        Item deleteItem = itemRepository.findById(itemId)
+                .orElseThrow(() -> new IllegalArgumentException("ITEM NOT EXIST"));
+        itemRepository.delete(deleteItem);
+    }
 
     @Override
     public List<Item> findItemListByUserType(Long userId) {
         User findUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("USER NOT EXISTS"));
         if(findUser.getUserStat().equals(UserStat.WITHDRAWAL)) {
-            throw new IllegalStateException("WITHDRAWAL USER CANNOT GET ITEM LIST");
+            throw new IllegalArgumentException("WITHDRAWAL USER CANNOT GET ITEM LIST");
         }
         if(findUser.getUserType().equals(UserType.ENTERPRISE)) {
             return itemRepository.findByDateBetweenStartEndDate(LocalDate.now());
@@ -79,5 +88,4 @@ public class ItemServiceImpl implements ItemService {
                     ItemType.GENERAL, LocalDate.now());
         }
     }
-
 }
