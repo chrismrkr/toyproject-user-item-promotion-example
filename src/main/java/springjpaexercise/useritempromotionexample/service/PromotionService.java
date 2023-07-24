@@ -1,7 +1,7 @@
 package springjpaexercise.useritempromotionexample.service;
 
-import springjpaexercise.useritempromotionexample.entity.vo.PromotionItemVo;
+import springjpaexercise.useritempromotionexample.entity.dto.PromotionItemDto;
 
 public interface PromotionService {
-    PromotionItemVo findPromotionItem(Long itemId);
+    PromotionItemDto findPromotionItem(Long itemId);
 }

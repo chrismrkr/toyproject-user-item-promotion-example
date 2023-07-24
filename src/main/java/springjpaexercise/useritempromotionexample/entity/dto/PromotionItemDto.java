@@ -1,13 +1,11 @@
-package springjpaexercise.useritempromotionexample.entity.vo;
+package springjpaexercise.useritempromotionexample.entity.dto;
 
-import lombok.Builder;
 import lombok.Data;
-import springjpaexercise.useritempromotionexample.entity.Promotion;
 
 import java.util.List;
 
 @Data
-public class PromotionItemVo {
+public class PromotionItemDto {
     private String itemName;
     private String itemType;
     private String startDate;
@@ -19,9 +17,10 @@ public class PromotionItemVo {
         for(Integer discountPrice : discountPriceList) {
             if(discountPrice > 0) {
                 this.discountPrice = discountPrice;
-                break;
+                return;
             }
         }
+        throw new IllegalArgumentException("PROMOTION NOT EXIST");
     }
     public static class Builder {
         private String itemName;
@@ -49,14 +48,14 @@ public class PromotionItemVo {
             this.endDate = endDate;
             return this;
         }
-        public PromotionItemVo build() {
-            return new PromotionItemVo(this);
+        public PromotionItemDto build() {
+            return new PromotionItemDto(this);
         }
     }
     public static Builder builder() {
         return new Builder();
     }
-    private PromotionItemVo(Builder builder) {
+    private PromotionItemDto(Builder builder) {
         this.itemName = builder.itemName;
         this.itemType = builder.itemType;
         this.originalPrice = builder.originalPrice;

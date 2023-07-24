@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.unittest.service;
+package springjpaexercise.useritempromotionexample.unittest.user.service;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;

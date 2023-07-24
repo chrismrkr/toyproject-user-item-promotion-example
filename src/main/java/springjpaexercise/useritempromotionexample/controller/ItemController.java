@@ -4,14 +4,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import springjpaexercise.useritempromotionexample.entity.Item;
 import springjpaexercise.useritempromotionexample.entity.dto.ItemDto;
+import springjpaexercise.useritempromotionexample.entity.dto.ItemListDto;
 import springjpaexercise.useritempromotionexample.service.ItemService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemService itemService;
+
+    @GetMapping("/item")
+    public ItemListDto selectItem(@RequestParam(name = "userId") String userId) {
+        List<Item> itemList = itemService.findItemListByUserType(Long.parseLong(userId));
+        ItemListDto itemListDto = createItemListDto(Long.parseLong(userId), itemList);
+        return itemListDto;
+    }
 
     @PostMapping("/item")
     public ItemDto createItem(@Valid @RequestBody ItemDto itemDto) {
@@ -40,5 +49,13 @@ public class ItemController {
                 .endDate(item.getItemDisplayDate().getEndDate().toString())
                 .build();
         return itemDto;
+    }
+    private ItemListDto createItemListDto(Long userId, List<Item> itemList) {
+        ItemListDto itemListDto = ItemListDto.builder()
+                .userId(userId)
+                .itemCount(itemList.size())
+                .itemList(itemList)
+                .build();
+        return itemListDto;
     }
 }

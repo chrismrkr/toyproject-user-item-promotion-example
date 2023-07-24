@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.unittest.repository;
+package springjpaexercise.useritempromotionexample.unittest.user.repository;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

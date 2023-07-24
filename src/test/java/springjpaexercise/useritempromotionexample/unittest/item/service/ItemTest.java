@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.unittest.service;
+package springjpaexercise.useritempromotionexample.unittest.item.service;
 
 
 import lombok.extern.slf4j.Slf4j;

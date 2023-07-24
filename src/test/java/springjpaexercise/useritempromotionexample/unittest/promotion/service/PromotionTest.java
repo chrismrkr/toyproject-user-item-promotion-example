@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.unittest.service;
+package springjpaexercise.useritempromotionexample.unittest.promotion.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

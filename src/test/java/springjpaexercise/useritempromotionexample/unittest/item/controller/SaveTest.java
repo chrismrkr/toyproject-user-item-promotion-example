@@ -1,4 +1,4 @@
-package springjpaexercise.useritempromotionexample.unittest.controller.item;
+package springjpaexercise.useritempromotionexample.unittest.item.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
