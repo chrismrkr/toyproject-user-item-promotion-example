@@ -24,6 +24,7 @@ Java 11, Spring Boot, Spring Data JPA, Gradle, PostgreSQL
 ### 3.3 프로모션(Promotion)
 
 + GET /promotion?itemId={itemId} : item({itemId})에 등록된 프로모션 조회
+
 프로모션이 존재할 때만 결과를 반환하고, 프로모션이 여러 개인 경우 가장 할인이 큰 것을 조회함
 
 + 등록, 수정, 삭제는 미구현
