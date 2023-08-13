@@ -27,7 +27,11 @@ Java 11, Spring Boot, Spring Data JPA, Gradle, PostgreSQL
 
 프로모션이 존재할 때만 결과를 반환하고, 프로모션이 여러 개인 경우 가장 할인이 큰 것을 조회함
 
-+ 등록, 수정, 삭제는 미구현
++ POST /promotion : 프로모션 생성
+
+promotion을 등록한 item이 존재해야 생성 가능
+
++ DELETE /promotion/{promotionId} : 프로모션 삭제
 
 
 ## 4. 테스트 코드
