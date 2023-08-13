@@ -39,7 +39,6 @@ public class ItemController {
         itemService.delete(id);
         return "ok";
     }
-
     private ItemDto createResponseItemDto(Item item) {
         ItemDto itemDto = ItemDto.builder()
                 .itemName(item.getItemName())

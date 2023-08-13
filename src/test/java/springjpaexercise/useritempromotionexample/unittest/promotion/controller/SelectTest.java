@@ -63,7 +63,8 @@ public class SelectTest {
         PromotionItem promotionItem = new PromotionItem(promotion1, item1);
         promotionItemRepository.save(promotionItem);
         // when
-        MvcResult result = mockMvc.perform(get("/promotion/item/{itemId}", save.getId())
+        MvcResult result = mockMvc.perform(get("/promotion")
+                        .param("itemId", save.getId().toString())
                         .contentType("application/json")
                         )
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -115,7 +116,8 @@ public class SelectTest {
         promotionItemRepository.save(promotionItem2);
         promotionItemRepository.save(promotionItem3);
         // when
-        MvcResult result = mockMvc.perform(get("/promotion/item/{itemId}", save.getId())
+        MvcResult result = mockMvc.perform(get("/promotion")
+                        .param("itemId", save.getId().toString())
                         .contentType("application/json")
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -145,7 +147,8 @@ public class SelectTest {
                 .build();
         promotionRepository.save(promotion1);
         // when
-        MvcResult result = mockMvc.perform(get("/promotion/item/{itemId}", save.getId())
+        MvcResult result = mockMvc.perform(get("/promotion")
+                        .param("itemId", save.getId().toString())
                         .contentType("application/json")
                 )
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -178,7 +181,8 @@ public class SelectTest {
         PromotionItem promotionItem = new PromotionItem(promotion1, item1);
         promotionItemRepository.save(promotionItem);
         // when
-        MvcResult result = mockMvc.perform(get("/promotion/item/{itemId}", save.getId())
+        MvcResult result = mockMvc.perform(get("/promotion")
+                        .param("itemId", save.getId().toString())
                         .contentType("application/json")
                 )
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
