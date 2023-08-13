@@ -90,7 +90,7 @@ FROM Entity WHERE id IN :ids
 ```
 
 ```sql
-FROM Entity WHERE idPartA = :idPartA0 AND idPartB = :idPartB0 .... OR idPartA = :idPartAN AND idPartB = :idPartBN**
+FROM Entity WHERE idPartA = :idPartA0 AND idPartB = :idPartB0 .... OR idPartA = :idPartAN AND idPartB = :idPartBN
 ```
 
 
